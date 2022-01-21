@@ -1,0 +1,123 @@
+<html lang="en">
+
+<head>
+    <link href="style.css" rel="stylesheet">
+    <title>SWAPI Test</title>
+</head>
+<body>
+
+<div x-data="tableData()">
+    <div x-show="statusBar" class="flex flex-col m-12 statusBar"
+         x-transition:leave="transition ease-in duration-300"
+         x-transition:leave-start="opacity-100 transform scale-100"
+         x-transition:leave-end="opacity-0 transform scale-90"
+    >
+        <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg bg-blue-200">
+            <div x-text="status" class="px-6 py-3 text-left text-xs font-medium text-black-900 uppercase"
+                 style="float:left">
+            </div>
+            <div x-show="loading" class="loader mr-2 mt-2" style="float:right">
+            </div>
+        </div>
+    </div>
+
+    <div class="flex flex-col m-12">
+        <div x-data="people"
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 transform scale-90"
+             x-transition:enter-end="opacity-100 transform scale-100"
+             x-transition:leave="transition ease-in duration-300"
+             x-transition:leave-start="opacity-100 transform scale-100"
+             x-transition:leave-end="opacity-0 transform scale-90"
+             x-init="getPeopleWithPlanets()"
+             class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div x-data="tableSorting()" class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                    <table class="min-w-full divide-y divide-gray-200" id="PeopleTable">
+                        <thead id="thead" class="bg-gray-50">
+                        <th
+                                id="num"
+                                scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer select-none"
+                                @click="sortByColumn('num', event)">#<a class="sort-asc"></a>
+                        </th>
+                        <th
+                                id="name"
+                                scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer select-none"
+                                @click="sortByColumn('name', event)">Name<a class="sort-by"></a>
+                        </th>
+                        <th
+                                id="height"
+                                scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer select-none"
+                                @click="sortByColumn('height', event)">Height<a class="sort-by"></a>
+                        </th>
+                        <th
+                                id="mass"
+                                scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer select-none"
+                                @click="sortByColumn('mass', event)">Mass<a class="sort-by"></a>
+                        </th>
+                        <th
+                                id="birthYear"
+                                scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer select-none"
+                                @click="sortByColumn('birthYear', event)">Birth Year<a class="sort-by"></a>
+                        </th>
+                        <th
+                                id="gender"
+                                scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer select-none"
+                                @click="sortByColumn('gender', event)">Gender<a class="sort-by"></a>
+                        </th>
+                        <th
+                                id="films"
+                                scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer select-none"
+                                @click="sortByColumn('films', event)">Films Count<a class="sort-by"></a>
+                        </th>
+                        <th
+                                id="home"
+                                scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer select-none"
+                                @click="sortByColumn('home', event)">
+                            Home Planet
+                            <a class="sort-by"></a>
+                        </th>
+                        </thead>
+                        <tbody x-ref="tbody" class="bg-white divide-y divide-gray-200">
+                        <template x-for="person in people" :key="person.num">
+                            <tr>
+                                <td x-text="person.num"
+                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                </td>
+                                <td x-text="person.name"
+                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"></td>
+                                <td x-text="person.height"
+                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"></td>
+                                <td x-text="person.mass"
+                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"></td>
+                                <td x-text="person.birth_year"
+                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"></td>
+                                <td x-text="person.gender"
+                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"></td>
+                                <td x-text="person.films.length"
+                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"></td>
+                                <td x-text="person.home"
+                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                </td>
+                            </tr>
+                        </template>
+
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="module" src="./app.js"></script>
+</body>
+</html>
